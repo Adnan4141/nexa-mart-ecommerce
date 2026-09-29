@@ -48,11 +48,9 @@ export function Header() {
         <div className="flex items-center justify-between gap-4 md:gap-8">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2 cursor-pointer">
-            <div className="w-10 h-10 rounded-xl bg-[#0B3B3C] flex items-center justify-center text-white shadow-md">
-              <ShoppingBag className="w-6 h-6 text-[#FF9900]" />
-            </div>
+           
             <div>
-              <span className="text-2xl font-black tracking-tight text-[#0B3B3C]">
+              <span className="text-3xl font-black tracking-tight text-[#0B3B3C]">
                 Nexa<span className="text-[#FF9900]">Mart</span>
               </span>
               <p className="text-[10px] text-gray-400 font-medium -mt-1 tracking-wider uppercase">

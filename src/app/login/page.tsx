@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export default function AuthPage() {
+function AuthContent() {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get("tab") === "register" ? "register" : "login";
 
@@ -88,15 +88,18 @@ export default function AuthPage() {
         </div>
       </header>
 
-      {/* Main 2-Column Split Layout with Tab Switcher */}
+      {/* Main 2-Column Split Layout with Animated Tab Transition */}
       <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 flex items-center justify-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 rounded-2xl overflow-hidden shadow-xl border border-gray-100 bg-white min-h-[580px]">
           
-          {/* Column 1: Left Brand Hero Banner (5 Cols) */}
+          {/* Column 1: Left Brand Hero Banner with Smooth Cross-fade Animation */}
           <div className="lg:col-span-5 bg-gradient-to-br from-[#082928] via-[#0B3B3C] to-[#041D1E] text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
             <div className="absolute -right-16 -top-16 w-56 h-56 bg-[#FFA000]/15 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 space-y-2">
+            <div
+              key={`banner-text-${activeTab}`}
+              className="relative z-10 space-y-2 transition-all duration-400 ease-out transform animate-in fade-in slide-in-from-top-2"
+            >
               <span className="inline-flex items-center gap-1 bg-white/10 text-amber-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-xs">
                 {activeTab === "login" ? (
                   <>
@@ -128,9 +131,12 @@ export default function AuthPage() {
               </p>
             </div>
 
-            {/* Showcase Image */}
+            {/* Showcase Image with Keyed Smooth Fade + Scale Animation */}
             <div className="relative z-10 my-2 py-1 flex items-center justify-center">
-              <div className="w-36 sm:w-44 relative transition-transform duration-500 ease-out group-hover:scale-105">
+              <div
+                key={`banner-img-${activeTab}`}
+                className="w-36 sm:w-44 relative transition-all duration-500 ease-out transform animate-in fade-in zoom-in-95 group-hover:scale-105"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={
@@ -139,7 +145,7 @@ export default function AuthPage() {
                       : "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&auto=format&fit=crop&q=80"
                   }
                   alt="NexaMart Showcase"
-                  className="w-full h-auto drop-shadow-xl rounded-xl transition-all duration-500"
+                  className="w-full h-auto drop-shadow-xl rounded-xl"
                 />
               </div>
             </div>
@@ -157,19 +163,24 @@ export default function AuthPage() {
             </div>
           </div>
 
-          {/* Column 2: Right Tab-wise Auth Form (7 Cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-8 lg:p-9 flex flex-col justify-center bg-white">
+          {/* Column 2: Right Tab-wise Auth Form with Sliding Animation */}
+          <div className="lg:col-span-7 p-6 sm:p-8 lg:p-9 flex flex-col justify-center bg-white overflow-hidden">
             <div className="max-w-sm w-full mx-auto space-y-4">
               
-              {/* Tab Switcher Pills */}
-              <div className="flex items-center p-1 bg-gray-100 rounded-xl">
+              {/* Tab Switcher Pills with Sliding Highlight Pill */}
+              <div className="relative flex items-center p-1 bg-gray-100 rounded-xl select-none">
+                {/* Animated Background Slider */}
+                <div
+                  className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-lg shadow-sm transition-all duration-300 ease-in-out ${
+                    activeTab === "login" ? "left-1" : "left-[calc(50%+2px)]"
+                  }`}
+                />
+
                 <button
                   type="button"
                   onClick={() => setActiveTab("login")}
-                  className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer ${
-                    activeTab === "login"
-                      ? "bg-white text-gray-900 shadow-xs"
-                      : "text-gray-500 hover:text-gray-800"
+                  className={`relative z-10 flex-1 py-1.5 text-xs font-bold rounded-lg transition-colors duration-200 cursor-pointer text-center ${
+                    activeTab === "login" ? "text-gray-900" : "text-gray-500 hover:text-gray-800"
                   }`}
                 >
                   Sign In
@@ -177,18 +188,19 @@ export default function AuthPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("register")}
-                  className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer ${
-                    activeTab === "register"
-                      ? "bg-white text-gray-900 shadow-xs"
-                      : "text-gray-500 hover:text-gray-800"
+                  className={`relative z-10 flex-1 py-1.5 text-xs font-bold rounded-lg transition-colors duration-200 cursor-pointer text-center ${
+                    activeTab === "register" ? "text-gray-900" : "text-gray-500 hover:text-gray-800"
                   }`}
                 >
                   Register
                 </button>
               </div>
 
-              {/* Form Header */}
-              <div className="space-y-0.5">
+              {/* Form Header with Keyed Fade Transition */}
+              <div
+                key={`header-${activeTab}`}
+                className="space-y-0.5 transition-all duration-300 ease-out animate-in fade-in"
+              >
                 <h1 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight font-sans">
                   {activeTab === "login" ? "Welcome Back to NexaMart" : "Create a NexaMart Account"}
                 </h1>
@@ -199,201 +211,208 @@ export default function AuthPage() {
                 </p>
               </div>
 
-              {/* Tab 1: Login Form */}
-              {activeTab === "login" && (
-                <form onSubmit={handleLoginSubmit} className="space-y-3 animate-in fade-in duration-300">
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-700 block">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="email"
-                        required
-                        placeholder="adnan@example.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
-                      />
-                      <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs font-bold text-gray-700">
-                        Password
+              {/* Tab Content Container with Slide & Fade Animation */}
+              <div className="relative">
+                {activeTab === "login" ? (
+                  <form
+                    key="tab-login-form"
+                    onSubmit={handleLoginSubmit}
+                    className="space-y-3 transition-all duration-300 ease-out transform animate-in fade-in slide-in-from-left-4"
+                  >
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-gray-700 block">
+                        Email Address
                       </label>
-                      <a
-                        href="#forgot"
-                        className="text-[11px] font-semibold text-[#FFA000] hover:underline cursor-pointer"
+                      <div className="relative">
+                        <Input
+                          type="email"
+                          required
+                          placeholder="adnan@example.com"
+                          value={loginEmail}
+                          onChange={(e) => setLoginEmail(e.target.value)}
+                          className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-gray-700">
+                          Password
+                        </label>
+                        <a
+                          href="#forgot"
+                          className="text-[11px] font-semibold text-[#FFA000] hover:underline cursor-pointer"
+                        >
+                          Forgot password?
+                        </a>
+                      </div>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          required
+                          placeholder="••••••••"
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
+                          className="pl-9 pr-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <Lock className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                          {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center pt-0.5">
+                      <input
+                        id="remember-me"
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        className="w-3.5 h-3.5 text-[#FFA000] border-gray-300 rounded focus:ring-[#FFA000] cursor-pointer"
+                      />
+                      <label
+                        htmlFor="remember-me"
+                        className="ml-2 text-xs font-medium text-gray-600 cursor-pointer select-none"
                       >
-                        Forgot password?
-                      </a>
+                        Remember me for 30 days
+                      </label>
                     </div>
-                    <div className="relative">
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        required
-                        placeholder="••••••••"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        className="pl-9 pr-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
-                      />
-                      <Lock className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+
+                    <div className="pt-1">
+                      <Button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-[#082928] hover:bg-[#051c1c] text-white h-9 rounded-lg text-xs font-bold shadow-xs transition-all duration-300 ease-in-out hover:scale-[1.01] active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
                       >
-                        {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                      </button>
+                        {isLoading ? "Signing in..." : "Sign In to Your Account"}
+                        {!isLoading && <ArrowRight className="w-3.5 h-3.5 text-[#FFA000]" />}
+                      </Button>
                     </div>
-                  </div>
-
-                  <div className="flex items-center pt-0.5">
-                    <input
-                      id="remember-me"
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                      className="w-3.5 h-3.5 text-[#FFA000] border-gray-300 rounded focus:ring-[#FFA000] cursor-pointer"
-                    />
-                    <label
-                      htmlFor="remember-me"
-                      className="ml-2 text-xs font-medium text-gray-600 cursor-pointer select-none"
-                    >
-                      Remember me for 30 days
-                    </label>
-                  </div>
-
-                  <div className="pt-1">
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-[#082928] hover:bg-[#051c1c] text-white h-9 rounded-lg text-xs font-bold shadow-xs transition-all duration-300 ease-in-out hover:scale-[1.01] active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
-                    >
-                      {isLoading ? "Signing in..." : "Sign In to Your Account"}
-                      {!isLoading && <ArrowRight className="w-3.5 h-3.5 text-[#FFA000]" />}
-                    </Button>
-                  </div>
-                </form>
-              )}
-
-              {/* Tab 2: Register Form */}
-              {activeTab === "register" && (
-                <form onSubmit={handleRegisterSubmit} className="space-y-2.5 animate-in fade-in duration-300">
-                  <div className="space-y-0.5">
-                    <label className="text-xs font-bold text-gray-700 block">
-                      Full Name *
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        required
-                        placeholder="e.g. Adnan Rahman"
-                        value={registerName}
-                        onChange={(e) => setRegisterName(e.target.value)}
-                        className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
-                      />
-                      <User className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                  </form>
+                ) : (
+                  <form
+                    key="tab-register-form"
+                    onSubmit={handleRegisterSubmit}
+                    className="space-y-2.5 transition-all duration-300 ease-out transform animate-in fade-in slide-in-from-right-4"
+                  >
+                    <div className="space-y-0.5">
+                      <label className="text-xs font-bold text-gray-700 block">
+                        Full Name *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          type="text"
+                          required
+                          placeholder="e.g. Adnan Rahman"
+                          value={registerName}
+                          onChange={(e) => setRegisterName(e.target.value)}
+                          className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <User className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-0.5">
-                    <label className="text-xs font-bold text-gray-700 block">
-                      Email Address *
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="email"
-                        required
-                        placeholder="adnan@example.com"
-                        value={registerEmail}
-                        onChange={(e) => setRegisterEmail(e.target.value)}
-                        className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
-                      />
-                      <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                    <div className="space-y-0.5">
+                      <label className="text-xs font-bold text-gray-700 block">
+                        Email Address *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          type="email"
+                          required
+                          placeholder="adnan@example.com"
+                          value={registerEmail}
+                          onChange={(e) => setRegisterEmail(e.target.value)}
+                          className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-0.5">
-                    <label className="text-xs font-bold text-gray-700 block">
-                      Phone Number *
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type="tel"
-                        required
-                        placeholder="+880 1712 345678"
-                        value={registerPhone}
-                        onChange={(e) => setRegisterPhone(e.target.value)}
-                        className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
-                      />
-                      <Phone className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                    <div className="space-y-0.5">
+                      <label className="text-xs font-bold text-gray-700 block">
+                        Phone Number *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          type="tel"
+                          required
+                          placeholder="+880 1712 345678"
+                          value={registerPhone}
+                          onChange={(e) => setRegisterPhone(e.target.value)}
+                          className="pl-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <Phone className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="space-y-0.5">
-                    <label className="text-xs font-bold text-gray-700 block">
-                      Password *
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type={showPassword ? "text" : "password"}
+                    <div className="space-y-0.5">
+                      <label className="text-xs font-bold text-gray-700 block">
+                        Password *
+                      </label>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          required
+                          placeholder="At least 8 characters"
+                          value={registerPassword}
+                          onChange={(e) => setRegisterPassword(e.target.value)}
+                          className="pl-9 pr-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        />
+                        <Lock className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                          {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start pt-0.5">
+                      <input
+                        id="tab-register-terms"
+                        type="checkbox"
                         required
-                        placeholder="At least 8 characters"
-                        value={registerPassword}
-                        onChange={(e) => setRegisterPassword(e.target.value)}
-                        className="pl-9 pr-9 h-9 border-gray-200 focus-visible:ring-[#FFA000] text-xs rounded-lg"
+                        checked={agreeTerms}
+                        onChange={(e) => setAgreeTerms(e.target.checked)}
+                        className="w-3.5 h-3.5 mt-0.5 text-[#FFA000] border-gray-300 rounded focus:ring-[#FFA000] cursor-pointer"
                       />
-                      <Lock className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      <label
+                        htmlFor="tab-register-terms"
+                        className="ml-2 text-[11px] font-medium text-gray-600 cursor-pointer leading-tight select-none"
                       >
-                        {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                      </button>
+                        I agree to the{" "}
+                        <a href="#terms" className="text-[#082928] font-bold underline hover:text-[#FFA000]">
+                          Terms
+                        </a>{" "}
+                        &amp;{" "}
+                        <a href="#privacy" className="text-[#082928] font-bold underline hover:text-[#FFA000]">
+                          Privacy
+                        </a>
+                      </label>
                     </div>
-                  </div>
 
-                  <div className="flex items-start pt-0.5">
-                    <input
-                      id="tab-register-terms"
-                      type="checkbox"
-                      required
-                      checked={agreeTerms}
-                      onChange={(e) => setAgreeTerms(e.target.checked)}
-                      className="w-3.5 h-3.5 mt-0.5 text-[#FFA000] border-gray-300 rounded focus:ring-[#FFA000] cursor-pointer"
-                    />
-                    <label
-                      htmlFor="tab-register-terms"
-                      className="ml-2 text-[11px] font-medium text-gray-600 cursor-pointer leading-tight select-none"
-                    >
-                      I agree to the{" "}
-                      <a href="#terms" className="text-[#082928] font-bold underline hover:text-[#FFA000]">
-                        Terms
-                      </a>{" "}
-                      &amp;{" "}
-                      <a href="#privacy" className="text-[#082928] font-bold underline hover:text-[#FFA000]">
-                        Privacy
-                      </a>
-                    </label>
-                  </div>
-
-                  <div className="pt-1">
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-[#082928] hover:bg-[#051c1c] text-white h-9 rounded-lg text-xs font-bold shadow-xs transition-all duration-300 ease-in-out hover:scale-[1.01] active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
-                    >
-                      {isLoading ? "Creating account..." : "Complete Registration"}
-                      {!isLoading && <ArrowRight className="w-3.5 h-3.5 text-[#FFA000]" />}
-                    </Button>
-                  </div>
-                </form>
-              )}
+                    <div className="pt-1">
+                      <Button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-[#082928] hover:bg-[#051c1c] text-white h-9 rounded-lg text-xs font-bold shadow-xs transition-all duration-300 ease-in-out hover:scale-[1.01] active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        {isLoading ? "Creating account..." : "Complete Registration"}
+                        {!isLoading && <ArrowRight className="w-3.5 h-3.5 text-[#FFA000]" />}
+                      </Button>
+                    </div>
+                  </form>
+                )}
+              </div>
 
               {/* Social Logins Divider */}
               <div className="relative my-2 text-center">
@@ -463,5 +482,13 @@ export default function AuthPage() {
         © {new Date().getFullYear()} NexaMart Inc. All rights reserved.
       </footer>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-xs font-bold text-[#082928]">Loading authentication...</div>}>
+      <AuthContent />
+    </Suspense>
   );
 }
