@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Search, Heart, ShoppingBag, User, ChevronDown, Menu, Flame, Phone, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/cart-context";
@@ -22,6 +23,7 @@ export function Header() {
 
   return (
     <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-40 shadow-xs">
+      {/* Top Banner Notice */}
       <div className="bg-[#083333] text-white text-xs py-2 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2 mx-auto sm:mx-0">
@@ -41,9 +43,11 @@ export function Header() {
         </div>
       </div>
 
+      {/* Main Brand & Search Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
         <div className="flex items-center justify-between gap-4 md:gap-8">
-          <div className="flex items-center gap-2 cursor-pointer">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-2 cursor-pointer">
             <div className="w-10 h-10 rounded-xl bg-[#0B3B3C] flex items-center justify-center text-white shadow-md">
               <ShoppingBag className="w-6 h-6 text-[#FF9900]" />
             </div>
@@ -55,8 +59,9 @@ export function Header() {
                 Premium Store
               </p>
             </div>
-          </div>
+          </Link>
 
+          {/* Search Box with Category Selector */}
           <div className="hidden md:flex flex-1 max-w-2xl items-center relative">
             <div className="flex w-full border-2 border-[#0B3B3C] rounded-full overflow-hidden focus-within:ring-2 focus-within:ring-[#FF9900] transition">
               <select
@@ -85,7 +90,9 @@ export function Header() {
             </div>
           </div>
 
+          {/* User Actions */}
           <div className="flex items-center gap-4 sm:gap-6">
+            {/* Wishlist */}
             <button
               className="relative p-2 text-gray-600 hover:text-[#0B3B3C] hover:bg-gray-50 rounded-full transition cursor-pointer"
               title="Wishlist"
@@ -98,6 +105,7 @@ export function Header() {
               )}
             </button>
 
+            {/* Cart Trigger */}
             <button
               onClick={() => setIsCartOpen(true)}
               className="flex items-center gap-2.5 p-1.5 hover:bg-gray-50 rounded-lg transition group cursor-pointer"
@@ -114,18 +122,25 @@ export function Header() {
               </div>
             </button>
 
-            <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-gray-200">
-              <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600">
+            {/* Login / Register Link */}
+            <Link
+              href="/login"
+              className="hidden sm:flex items-center gap-2 pl-2 border-l border-gray-200 group cursor-pointer"
+            >
+              <div className="w-9 h-9 rounded-full bg-gray-100 group-hover:bg-emerald-50 group-hover:text-[#0B3B3C] flex items-center justify-center text-gray-600 transition">
                 <User className="w-5 h-5" />
               </div>
               <div className="text-left text-xs leading-tight">
                 <span className="text-gray-400 block text-[10px]">Hello,</span>
-                <span className="font-bold text-[#0B3B3C] hover:text-[#FF9900] cursor-pointer">Login / Sign In</span>
+                <span className="font-bold text-[#0B3B3C] group-hover:text-[#FF9900] transition">
+                  Login / Sign In
+                </span>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
 
+        {/* Mobile Search input */}
         <div className="mt-3 md:hidden">
           <div className="flex w-full border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#FF9900]">
             <input
@@ -142,6 +157,7 @@ export function Header() {
         </div>
       </div>
 
+      {/* Navigation Sub-Menu Bar */}
       <div className="border-t border-gray-100 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-6">

@@ -13,18 +13,16 @@ import {
   getWeeklyDeals,
   getPopularProducts,
   getBestSellers,
-  getTopSellers,
   getActiveCoupons,
 } from "@/services/product-service";
 
 export default async function HomePage() {
-  const [categories, weeklyDeals, popularProducts, bestSellers, topSellers, coupons] =
+  const [categories, weeklyDeals, popularProducts, bestSellers, coupons] =
     await Promise.all([
       getCategories(),
       getWeeklyDeals(),
       getPopularProducts(),
       getBestSellers(),
-      getTopSellers(),
       getActiveCoupons(),
     ]);
 
@@ -37,7 +35,6 @@ export default async function HomePage() {
 
         <WeeklyDeals products={weeklyDeals} />
 
-        {/* Shop Deals by Category (Screenshot 4) */}
         <CategoryShowcase coupons={coupons} />
 
         <PopularProducts products={popularProducts} />
@@ -46,7 +43,7 @@ export default async function HomePage() {
 
         <DeliveryBookingWidget />
 
-        <SellersAndTrust sellers={topSellers} />
+        <SellersAndTrust />
       </main>
 
       <Footer />

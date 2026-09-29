@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShoppingBag, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -20,117 +20,260 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#052324] text-white pt-14 pb-8 border-t border-emerald-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2 space-y-4">
+    <footer className="bg-[#052627] text-white pt-16 pb-8 border-t border-emerald-950 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Left Column: Brand Logo, Description, Subscribe Input & Social Media (5 Cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* NexaMart Brand Logo */}
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white">
-                <ShoppingBag className="w-5 h-5 text-[#FF9900]" />
-              </div>
-              <span className="text-2xl font-black tracking-tight text-white">
-                Nexa<span className="text-[#FF9900]">Mart</span>
+              <span className="text-3xl font-extrabold tracking-tight text-white font-sans">
+                Nexa<span className="text-[#FFA000]">Mart</span>
               </span>
             </div>
 
-            <p className="text-xs text-emerald-200/80 leading-relaxed max-w-sm">
-              We connect millions of verified shoppers worldwide with premium electronics, stylish apparel, and everyday home essentials.
+            {/* Tagline */}
+            <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed max-w-sm">
+              We have expertise in building scalable, high performance e-commerce application.
             </p>
 
-            <div className="pt-2">
-              <p className="text-xs font-bold text-gray-200 mb-2">
-                Subscribe for weekly VIP discounts:
-              </p>
+            {/* We Are Ready to help + White Subscribe Input Box */}
+            <div className="space-y-2.5 pt-1">
+              <h4 className="text-sm font-bold text-white tracking-wide">
+                We Are Ready to help
+              </h4>
+
               {isSubscribed ? (
-                <div className="bg-emerald-800/60 text-emerald-200 px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2">
+                <div className="bg-emerald-900/80 text-emerald-200 px-4 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2 max-w-md">
                   <Check className="w-4 h-4 text-emerald-400" />
-                  Thanks for subscribing! Check your inbox for coupons.
+                  Thanks for subscribing! Check your email.
                 </div>
               ) : (
-                <form onSubmit={handleSubscribe} className="flex max-w-md">
+                <form
+                  onSubmit={handleSubscribe}
+                  className="flex items-center bg-white rounded-lg p-1 max-w-md shadow-md focus-within:ring-2 focus-within:ring-[#FFA000] transition"
+                >
                   <input
                     type="email"
                     required
-                    placeholder="Enter your email address"
+                    placeholder="Enter Your Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/10 border border-emerald-900 px-3.5 py-2 rounded-l-lg text-xs text-white placeholder-gray-400 outline-none w-full focus:ring-1 focus:ring-[#FF9900]"
+                    className="flex-1 px-3 py-2 text-xs text-gray-800 placeholder-gray-400 outline-none rounded-l-md"
                   />
-                  <Button
+                  <button
                     type="submit"
-                    className="bg-[#FF9900] hover:bg-[#e68a00] text-white px-5 rounded-r-lg rounded-l-none text-xs font-bold"
+                    className="bg-[#FFA000] hover:bg-[#e69000] text-white text-xs font-bold px-6 py-2.5 rounded-md shadow-xs transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
                   >
                     Subscribe
-                  </Button>
+                  </button>
                 </form>
               )}
             </div>
 
-            <div className="flex items-center gap-3 pt-3">
-              <a href="#" className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white hover:opacity-80 transition text-xs font-bold">
-                f
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-white hover:opacity-80 transition text-xs font-bold">
-                𝕏
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white hover:opacity-80 transition text-xs font-bold">
-                ig
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white hover:opacity-80 transition text-xs font-bold">
-                ▶
-              </a>
+            {/* Social Media Circular Buttons (Facebook, Twitter, Dribbble, Behance) */}
+            <div className="space-y-2.5 pt-2">
+              <h4 className="text-xs font-bold text-white tracking-wide">
+                Social Media
+              </h4>
+              <div className="flex items-center gap-3">
+                {/* Facebook (Deep Blue) */}
+                <a
+                  href="#facebook"
+                  className="w-8 h-8 rounded-full bg-[#3B5998] hover:bg-[#2d4373] text-white flex items-center justify-center text-xs font-black shadow-sm transition-all duration-300 ease-in-out transform hover:scale-115 cursor-pointer"
+                  title="Facebook"
+                >
+                  f
+                </a>
+                {/* Twitter (Light Blue) */}
+                <a
+                  href="#twitter"
+                  className="w-8 h-8 rounded-full bg-[#00ACEE] hover:bg-[#0092ca] text-white flex items-center justify-center text-xs font-bold shadow-sm transition-all duration-300 ease-in-out transform hover:scale-115 cursor-pointer"
+                  title="Twitter"
+                >
+                  𝕏
+                </a>
+                {/* Dribbble (Pink) */}
+                <a
+                  href="#dribbble"
+                  className="w-8 h-8 rounded-full bg-[#EA4C89] hover:bg-[#d93b77] text-white flex items-center justify-center text-xs font-bold shadow-sm transition-all duration-300 ease-in-out transform hover:scale-115 cursor-pointer"
+                  title="Dribbble"
+                >
+                  🏀
+                </a>
+                {/* Behance (Navy Blue) */}
+                <a
+                  href="#behance"
+                  className="w-8 h-8 rounded-full bg-[#0057FF] hover:bg-[#0047d4] text-white flex items-center justify-center text-xs font-bold shadow-sm transition-all duration-300 ease-in-out transform hover:scale-115 cursor-pointer"
+                  title="Behance"
+                >
+                  Bē
+                </a>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
+          {/* Column 2: Information (2.3 Cols) */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-sm font-bold text-gray-200 tracking-wide">
+              Information
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-400 font-normal">
+              <li>
+                <a href="#about" className="hover:text-white transition-colors duration-200">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#delivery" className="hover:text-white transition-colors duration-200">
+                  Delivery Information
+                </a>
+              </li>
+              <li>
+                <a href="#privacy" className="hover:text-white transition-colors duration-200">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#terms" className="hover:text-white transition-colors duration-200">
+                  Terms &amp; Conditions
+                </a>
+              </li>
+              <li>
+                <a href="#return" className="hover:text-white transition-colors duration-200">
+                  Return Policy
+                </a>
+              </li>
+              <li>
+                <a href="#become-seller" className="hover:text-white transition-colors duration-200">
+                  Become seller
+                </a>
+              </li>
+              <li>
+                <a href="#vendor" className="hover:text-white transition-colors duration-200">
+                  Vendor profile
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Quick Links (2.3 Cols) */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-sm font-bold text-gray-200 tracking-wide">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-xs text-gray-300">
-              <li><a href="#about" className="hover:text-white transition">About Us</a></li>
-              <li><a href="#privacy" className="hover:text-white transition">Privacy Policy</a></li>
-              <li><a href="#terms" className="hover:text-white transition">Terms & Conditions</a></li>
-              <li><a href="#contact" className="hover:text-white transition">Contact Us</a></li>
-              <li><a href="#faq" className="hover:text-white transition">Help & FAQs</a></li>
+            <ul className="space-y-2.5 text-xs text-gray-400 font-normal">
+              <li>
+                <a href="#account" className="hover:text-white transition-colors duration-200">
+                  Your Account
+                </a>
+              </li>
+              <li>
+                <a href="#returns" className="hover:text-white transition-colors duration-200">
+                  Returns &amp; Exchanges
+                </a>
+              </li>
+              <li>
+                <a href="#return-center" className="hover:text-white transition-colors duration-200">
+                  Return Center
+                </a>
+              </li>
+              <li>
+                <a href="#purchase-history" className="hover:text-white transition-colors duration-200">
+                  Purchase History
+                </a>
+              </li>
+              <li>
+                <a href="#blog" className="hover:text-white transition-colors duration-200">
+                  Latest News Blog
+                </a>
+              </li>
+              <li>
+                <a href="#advertise" className="hover:text-white transition-colors duration-200">
+                  Advertise your products
+                </a>
+              </li>
+              <li>
+                <a href="#sell" className="hover:text-white transition-colors duration-200">
+                  Sell product
+                </a>
+              </li>
             </ul>
           </div>
 
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              Customer Area
+          {/* Column 4: My Accounts (2.4 Cols) */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-sm font-bold text-gray-200 tracking-wide">
+              My Accounts
             </h4>
-            <ul className="space-y-2 text-xs text-gray-300">
-              <li><a href="#account" className="hover:text-white transition">My Account</a></li>
-              <li><a href="#orders" className="hover:text-white transition">Order Tracking</a></li>
-              <li><a href="#wishlist" className="hover:text-white transition">Wishlist</a></li>
-              <li><a href="#delivery-slot" className="hover:text-white transition">VIP Delivery Schedule</a></li>
-              <li><a href="#support" className="hover:text-white transition">Customer Support</a></li>
-            </ul>
-          </div>
-
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              NexaMart Business
-            </h4>
-            <ul className="space-y-2 text-xs text-gray-300">
-              <li><a href="#sell" className="hover:text-white transition">Sell on NexaMart</a></li>
-              <li><a href="#affiliate" className="hover:text-white transition">Affiliate Program</a></li>
-              <li><a href="#wholesale" className="hover:text-white transition">Wholesale Inquiries</a></li>
-              <li><a href="#careers" className="hover:text-white transition">Careers</a></li>
-              <li><a href="#press" className="hover:text-white transition">Press & Media</a></li>
+            <ul className="space-y-2.5 text-xs text-gray-400 font-normal">
+              <li>
+                <a href="#my-account" className="hover:text-white transition-colors duration-200">
+                  My account
+                </a>
+              </li>
+              <li>
+                <a href="#cart" className="hover:text-white transition-colors duration-200">
+                  Shopping Cart
+                </a>
+              </li>
+              <li>
+                <a href="#wishlist" className="hover:text-white transition-colors duration-200">
+                  Wishlist
+                </a>
+              </li>
+              <li>
+                <a href="#orders" className="hover:text-white transition-colors duration-200">
+                  Order History
+                </a>
+              </li>
+              <li>
+                <a href="#international" className="hover:text-white transition-colors duration-200">
+                  International Orders
+                </a>
+              </li>
+              <li>
+                <a href="#your-account" className="hover:text-white transition-colors duration-200">
+                  Your account
+                </a>
+              </li>
+              <li>
+                <a href="#your-orders" className="hover:text-white transition-colors duration-200">
+                  Your orders
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
+        {/* Bottom Bar: Copyright & Payment Badges (Exact Screenshot Match) */}
         <div className="border-t border-emerald-950/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} NexaMart Inc. All rights reserved.</p>
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-semibold text-gray-400">Secure Payments:</span>
-            <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-              <span className="font-bold text-sky-400">VISA</span>
-              <span className="font-bold text-red-400">Mastercard</span>
-              <span className="font-bold text-amber-400">PayPal</span>
-              <span className="font-bold text-emerald-400">bKash</span>
+          <p className="font-normal">
+            © Copyright 2026. All rights reserved.{" "}
+            <span className="text-[#FFA000] font-semibold cursor-pointer hover:underline">
+              NexaMart
+            </span>
+          </p>
+
+          {/* Payment Method Badges */}
+          <div className="flex items-center gap-2">
+            {/* VISA */}
+            <div className="bg-[#1A1F2C] border border-white/10 px-2.5 py-1 rounded flex items-center justify-center text-[10px] font-black italic text-white tracking-wider">
+              VISA
+            </div>
+            {/* Mastercard */}
+            <div className="bg-[#1A1F2C] border border-white/10 px-2 py-1 rounded flex items-center justify-center gap-0.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#EB001B] inline-block -mr-1" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] inline-block opacity-90" />
+            </div>
+            {/* Payoneer */}
+            <div className="bg-[#1A1F2C] border border-white/10 px-2.5 py-1 rounded flex items-center justify-center text-[10px] font-bold text-[#FF4800]">
+              Payoneer
+            </div>
+            {/* PayPal */}
+            <div className="bg-[#1A1F2C] border border-white/10 px-2.5 py-1 rounded flex items-center justify-center text-[10px] font-extrabold italic text-[#0079C1]">
+              PayPal
             </div>
           </div>
         </div>
