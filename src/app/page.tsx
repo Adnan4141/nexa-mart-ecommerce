@@ -37,7 +37,8 @@ export default async function HomePage() {
 
         <WeeklyDeals products={weeklyDeals} />
 
-        <CategoryShowcase categories={categories} coupons={coupons} />
+        {/* Shop Deals by Category (Screenshot 4) */}
+        <CategoryShowcase coupons={coupons} />
 
         <PopularProducts products={popularProducts} />
 
