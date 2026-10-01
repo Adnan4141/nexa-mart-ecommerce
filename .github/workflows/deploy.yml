@@ -1,0 +1,60 @@
+name: NexaMart AWS Production CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build & Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Next.js Application
+        run: npm run build
+
+  deploy:
+    name: Deploy to AWS EC2
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute Remote Deployment via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script_stop: true
+          script: |
+            echo "==== Running NexaMart Automated Deployment ===="
+            cd /var/www/nexamart
+            export PATH=/usr/local/bin:$PATH
+            
+            echo "1. Pulling latest code from origin/main..."
+            git fetch origin main
+            git reset --hard origin/main
+            
+            echo "2. Installing dependencies..."
+            npm install
+            
+            echo "3. Building Next.js production bundle..."
+            npm run build
+            
+            echo "4. Reloading PM2 cluster..."
+            pm2 restart nexamart || pm2 start npm --name nexamart -- start
+            pm2 save
+            
+            echo "==== Deployment Completed Successfully ===="
