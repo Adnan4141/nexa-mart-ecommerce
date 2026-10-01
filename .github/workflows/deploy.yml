@@ -39,22 +39,4 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            echo "==== Running NexaMart Automated Deployment ===="
-            cd /var/www/nexamart
-            export PATH=/usr/local/bin:$PATH
-            
-            echo "1. Pulling latest code from origin/main..."
-            git fetch origin main
-            git reset --hard origin/main
-            
-            echo "2. Installing dependencies..."
-            npm install
-            
-            echo "3. Building Next.js production bundle..."
-            npm run build
-            
-            echo "4. Reloading PM2 cluster..."
-            pm2 restart nexamart || pm2 start npm --name nexamart -- start
-            pm2 save
-            
-            echo "==== Deployment Completed Successfully ===="
+            /var/www/nexamart/deploy.sh
