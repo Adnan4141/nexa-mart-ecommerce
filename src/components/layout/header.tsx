@@ -90,10 +90,11 @@ export function Header() {
 
           {/* User Actions */}
           <div className="flex items-center gap-4 sm:gap-6">
-            {/* Wishlist */}
-            <button
-              className="relative p-2 text-gray-600 hover:text-[#0B3B3C] hover:bg-gray-50 rounded-full transition cursor-pointer"
-              title="Wishlist"
+            {/* Wishlist Link */}
+            <Link
+              href="/wishlist"
+              className="relative p-2 text-gray-600 hover:text-[#0B3B3C] hover:bg-gray-50 rounded-full transition cursor-pointer block"
+              title="View Wishlist"
             >
               <Heart className="w-6 h-6" />
               {wishlist.length > 0 && (
@@ -101,7 +102,7 @@ export function Header() {
                   {wishlist.length}
                 </span>
               )}
-            </button>
+            </Link>
 
             {/* Cart Trigger */}
             <button
@@ -184,8 +185,9 @@ export function Header() {
               <a href="#weekly-deals" className="flex items-center gap-1 text-[#0B3B3C] font-bold hover:text-[#FF9900] transition">
                 Super Deals <span className="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded font-bold">HOT</span>
               </a>
-              <a href="#delivery-slot" className="hover:text-[#FF9900] transition">Delivery Slots</a>
-              <a href="#categories" className="hover:text-[#FF9900] transition">Whats New</a>
+              <Link href="/delivery" className="hover:text-[#FF9900] transition">Delivery Slots</Link>
+              <Link href="/track-order" className="hover:text-[#FF9900] transition">Track Order</Link>
+              <Link href="/admin" className="text-gray-400 hover:text-[#0B3B3C] transition text-[11px] font-bold">Admin</Link>
               <a href="#weekly-deals" className="flex items-center gap-1 text-red-500 font-bold hover:text-red-600 transition">
                 <Flame className="w-3.5 h-3.5" /> Special Offer
               </a>

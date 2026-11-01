@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Star, Heart, ShoppingBag, Eye, Check } from "lucide-react";
 import { Product } from "@/types";
 import { Badge } from "@/components/ui/badge";
@@ -87,9 +88,9 @@ export function ProductCard({
           </div>
         </div>
 
-        <div
-          onClick={() => setIsQuickViewOpen(true)}
-          className="relative w-full aspect-square my-3 overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center cursor-pointer group-hover:scale-[1.02] transition-transform duration-300"
+        <Link
+          href={`/products/${product.id}`}
+          className="relative w-full aspect-square my-3 overflow-hidden rounded-xl bg-gray-50 flex items-center justify-center cursor-pointer group-hover:scale-[1.02] transition-transform duration-300 block"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -98,7 +99,7 @@ export function ProductCard({
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
-        </div>
+        </Link>
 
         <div className="space-y-1.5">
           {product.brand && (
@@ -110,14 +111,14 @@ export function ProductCard({
             </div>
           )}
 
-          <h3
-            onClick={() => setIsQuickViewOpen(true)}
-            className={"text-xs font-semibold line-clamp-2 cursor-pointer hover:text-[#FF9900] transition " + (
+          <Link
+            href={`/products/${product.id}`}
+            className={"text-xs font-semibold line-clamp-2 cursor-pointer hover:text-[#FF9900] transition block " + (
               variant === "dark" ? "text-gray-100" : "text-gray-900"
             )}
           >
             {product.name}
-          </h3>
+          </Link>
 
           <div className="flex items-center gap-1 text-[11px] text-amber-500">
             <div className="flex items-center">

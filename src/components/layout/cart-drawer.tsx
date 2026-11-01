@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { X, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
@@ -115,16 +116,14 @@ export function CartDrawer() {
                 Taxes and shipping calculated at checkout. Free shipping on orders over $50.
               </p>
               <div className="space-y-2">
-                <Button
-                  onClick={() => {
-                    alert("Proceeding to NexaMart Checkout!");
-                    setIsCartOpen(false);
-                  }}
-                  variant="primary"
-                  className="w-full flex items-center justify-center gap-2"
-                >
-                  Proceed to Checkout <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link href="/checkout" onClick={() => setIsCartOpen(false)} className="block w-full">
+                  <Button
+                    variant="primary"
+                    className="w-full flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    Proceed to Checkout <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
                 <Button
                   onClick={() => setIsCartOpen(false)}
                   variant="outline"
