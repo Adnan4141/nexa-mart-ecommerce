@@ -74,3 +74,4 @@ export function ProductDetailsClient({ product }: { product: Product }) {
     </div>
   );
 }
+
