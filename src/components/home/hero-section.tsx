@@ -128,8 +128,8 @@ export function HeroSection() {
             <div className="relative mt-6 w-full flex justify-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80"
-                alt="Season Fashion"
+                src="/stylish-looks-girl.png"
+                alt="Stylish Looks For Any Season"
                 className="w-full max-h-[360px] object-cover rounded-2xl shadow-xl transition-all duration-700 ease-out transform group-hover:scale-105 group-hover:shadow-2xl"
               />
             </div>
